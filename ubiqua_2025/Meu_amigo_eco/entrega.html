@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Entrega de Resíduos - Ser Recicla</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #2b2640;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #00ff88;
+        }
+        
+        .logout-btn {
+            background-color: #a82828;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #8a2020;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+        }
+        
+        .form-container {
+            background-color: #2b2640;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 700px;
+            padding: 30px;
+            color: white;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3a3456;
+            color: white;
+        }
+        
+        input::placeholder, select::placeholder {
+            color: #ccc;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .btn-submit {
+            background-color: #00ff88;
+            color: #2b2640;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #00cc6a;
+        }
+        
+        footer {
+            background-color: #a82828;
+            color: white;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: #a82828;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+        
+        .contact-input {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .contact-input input {
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .contact-input button {
+            background-color: #2b2640;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #000;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="home_img/Bandeira_do_Pará.svg.png" alt="Bandeira do Pará" class="logo">
+            <div class="nav-links">
+                <a href="home.html">HOME</a>
+                <a href="dashboard.html">DASHBOARD</a>
+                <a href="entrega.html">ENTREGAR RESÍDUOS</a>
+            </div>
+            <a href="login.html"><button class="logout-btn">Logout</button></a>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="form-container">
+            <h2 class="form-title">REGISTRAR ENTREGA</h2>
+            
+            <form id="entregaForm">
+                <div class="form-group">
+                    <label for="quantidade">Quantidade (kg)</label>
+                    <input type="number" id="quantidade" step="0.01" min="0.01" placeholder="Ex: 2.5" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipoResiduo">Tipo de Resíduo</label>
+                        <select id="tipoResiduo" required>
+                            <option value="">Selecione</option>
+                            <option value="aluminio">Alumínio</option>
+                            <option value="vidro">Vidro</option>
+                            <option value="pano">Pano</option>
+                            <option value="pet">PET</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="turma">Turma</label>
+                        <input type="text" id="turma" placeholder="Ex: CC3VA" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="curso">Curso</label>
+                        <select id="curso" required>
+                            <option value="">Selecione</option>
+                            <option value="cc">Ciência da Computação</option>
+                            <option value="si">Sistemas de Informação</option>
+                            <option value="ec">Engenharia da Computação</option>
+                            <option value="ea">Engenharia Ambiental</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="semestre">Semestre</label>
+                        <select id="semestre" required>
+                            <option value="">Selecione</option>
+                            <option value="1">1º</option>
+                            <option value="2">2º</option>
+                            <option value="3">3º</option>
+                            <option value="4">4º</option>
+                            <option value="5">5º</option>
+                            <option value="6">6º</option>
+                            <option value="7">7º</option>
+                            <option value="8">8º</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="turno">Turno</label>
+                        <select id="turno" required>
+                            <option value="">Selecione</option>
+                            <option value="matutino">Matutino</option>
+                            <option value="vespertino">Vespertino</option>
+                            <option value="noturno">Noturno</option>
+                            <option value="integral">Integral</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="unidade">Unidade</label>
+                        <select id="unidade" required>
+                            <option value="">Selecione</option>
+                            <option value="alcindo">Unama Alcindo Cacela</option>
+                            <option value="ananindeua">Unama Ananindeua</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">REGISTRAR ENTREGA</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>O Melhor para nossa cidade!</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>UNAMA</h3>
+                <p>Projeto Ser Recicla</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <p>Entre em contato com a equipe do projeto</p>
+                <div class="contact-input">
+                    <input type="text" placeholder="Seu email">
+                    <button><i class="fas fa-envelope"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &#169; 2025 Universidade da Amazônia - COP30
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('entregaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const formData = {
+                quantidade: document.getElementById('quantidade').value,
+                tipoResiduo: document.getElementById('tipoResiduo').value,
+                turma: document.getElementById('turma').value,
+                curso: document.getElementById('curso').value,
+                semestre: document.getElementById('semestre').value,
+                turno: document.getElementById('turno').value,
+                unidade: document.getElementById('unidade').value
+            };
+            
+            // Aqui você adicionaria o código para enviar os dados para o servidor
+            console.log('Dados da entrega:', formData);
+            
+            // Exemplo de feedback ao usuário
+            alert('Entrega registrada com sucesso!');
+            
+            // Limpar formulário
+            this.reset();
+        });
+    </script>
+</body>
+</html>

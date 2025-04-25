@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style3.css">
+    <script src="https:/kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="imagex/png" href="icone/Icone 2.png">
+
+    <title>Barraca Paraense</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #2b2640;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        /* Estilo para fixar o header */
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Estilo para fixar o footer */
+        #final {
+            margin-top: auto;
+            background-color:#4a426b;
+        }
+        
+        .btn-reciclar {
+            display: inline-block;
+            background-color: #00cc6a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        
+        .btn-reciclar:hover {
+            background-color: #009b50;
+            transform: scale(1.05);
+        }
+        
+        .cadastre-se button, .login button {
+            background-color: #a82828;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="flex">
+                <a href="home.html" class="inicio"><img class="ii" src="home_img/Bandeira_do_Pará.svg.png" alt=""></a>
+                <nav>
+                    <ul>
+                        <li><a href="home.html">HOME</a></li>
+                        <li><a href="entrega.html">RECICLAGEM</a></li>
+                        <li><a href="dashboard.html">DASHBOARD</a></li>
+                    </ul>
+                </nav>
+                <div class="cadastre-se">
+                    <a href="cadastro.html"><button>Registrar</button></a>
+                </div>
+                <div class="login">
+                    <a href="login.html"><button>Logar</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="banner">
+        <h1><span>ECO TRACK</span> PARAENSE</h1>
+    </section><section class="conteudo">
+      <h2 class="titulo">CULINÁRIA</h2>
+      <div class="produtos">
+          <!-- Mantive o conteúdo original da seção de Culinária -->
+          <div class="card">
+              <img src="imagens/Açai.png">
+              <div>
+                <h1>Açai</h1>
+                <h2>Fruto cultivado predominantemente na região amazônica</h2>
+                <h2>Rico em proteínas!</h2>
+                <span>1 Litro por R$ 19,90</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Jambu.png">
+              <div>
+                <h1>Cachaça de Jambu</h1>
+                <h2>Produzida 100% na Amazônia</h2>
+                <h2>Uma bebida única, que causa salivação e tremor nos lábios</h2>
+                <span>R$ 85,50</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Café de Açai.png">
+              <div>
+                <h1>Café de Açai</h1>
+                <h2>Saboreie o delicioso e saudável café do caroço de açaí</h2>
+                <h2>Ajuda a baixar o colesterol e a glicose. Sua saúde agradecerá!</h2>
+                <span>R$ 16,99</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Mingau.png">
+              <div>
+                <h1>Mingau</h1>
+                <h2>Comida típica de resistência dos trabalhadores</h2>
+                <h2>Com a opção de incluir leite condensado e canela!</h2>
+                <span>R$ 3,99</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Camarão.png">
+              <div>
+                <h1>Camarão</h1>
+                <h2>Fonte de vitamina</h2>
+                <span>1 Kg por R$ 39,90</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Nova seção de reciclagem -->
+  <div id="reciclagem" class="caixa">
+      <h2 class="titulo">RECICLAGEM - COP30</h2>
+      <div style="padding: 20px; text-align: center; background-color: #f0f8ff; border-radius: 10px; margin-bottom: 20px;">
+          <h3 style="color: #2f2841; margin-bottom: 15px; font-size: 1.8rem;">Projeto Ser Recicla - UNAMA</h3>
+          <p style="margin-bottom: 20px; line-height: 1.6;">Em 2025, Belém será sede da COP 30, um dos eventos globais mais importantes sobre mudanças climáticas. Participe do projeto Ser Recicla e ajude a tornar nossa cidade mais sustentável!</p>
+          
+          <div style="display: flex; justify-content: center; gap: 40px; margin: 30px 0;">
+              <div style="text-align: center;">
+                  <i class="fas fa-recycle" style="font-size: 40px; color: #00ff88; margin-bottom: 10px;"></i>
+                  <p style="color: #2f2841; font-weight: bold;">Recicle</p>
+              </div>
+              <div style="text-align: center;">
+                  <i class="fas fa-leaf" style="font-size: 40px; color: #00ff88; margin-bottom: 10px;"></i>
+                  <p style="color: #2f2841; font-weight: bold;">Preserve</p>
+              </div>
+              <div style="text-align: center;">
+                  <i class="fas fa-tree" style="font-size: 40px; color: #00ff88; margin-bottom: 10px;"></i>
+                  <p style="color: #2f2841; font-weight: bold;">Sustente</p>
+              </div>
+          </div>
+          
+          <p style="margin-bottom: 20px; line-height: 1.6;">O projeto Ser Recicla visa fomentar a participação das turmas na entrega de materiais recicláveis como alumínio, vidro, pano e PET, através de um sistema digital que incentiva e registra essas ações.</p>
+          
+          <a href="entrega.html" class="btn-reciclar">Registrar Entrega de Resíduos</a>
+          <a href="dashboard.html" class="btn-reciclar" style="margin-left: 20px;">Ver Dashboard de Reciclagem</a>
+      </div>
+  </div>
+  
+  <div id="artesanatos" class="caixa">
+      <h2 class="titulo">ARTESANATO</h2>
+      <div class="produtos">
+          <!-- Mantive o conteúdo original da seção de Artesanato -->
+          <div class="card">
+              <img src="imagens/Cesta artesanal.png">
+              <div>
+                <h1>Cesta Artesanal</h1>
+                <h2>Produzido a mão</h2>
+                <span>R$ 29,99</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/navio artesanal.png">
+              <div>
+                <h1>Navio Artesanal</h1>
+                <h2>Produzido a mão</h2>
+                <span>R$ 39,50</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Tijela Artesanal.png">
+              <div>
+                <h1>Tijela Artesanal</h1>
+                <h2>Produzido a mão</h2>
+                <span>R$ 32,99</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Jarro artesanal.png">
+              <div>
+                <h1>Jarro Artesanal</h1>
+                <h2>Produzido a mão</h2>
+                <span>R$ 15,99</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+          
+          <div class="card">
+              <img src="imagens/Bijuteria Artesanal.png">
+              <div>   
+                <h1>Bijuteria Artesanal</h1>
+                <h2>Produzido a mão</h2>
+                <span>R$ 10,00</span>
+                <button>Adicionar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</section><div class="divisao"></div>
+    
+<!-- Seção de comentários (atualizada com comentários sobre reciclagem) -->
+<section id="testimonials">
+    <div class="testimonial-heading">
+        <span>Comentário</span>
+        <h1>Clientes</h1>
+    </div>
+    <div class="testimonia-box-container">
+        <div class="testimonial-box">
+            <div class="box-top">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="pessoas_comentarios/3.png" alt="">
+                    </div>
+                    <div class="name-user">
+                        <strong>Bruna M</strong>
+                        <span>@bruninhamedeiros</span>
+                    </div>
+                </div>
+
+                <div class="reviews">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+
+            <div class="client-comment"><p>Separar o lixo corretamente, reutilizar materiais e repensar o consumo são ações simples, mas com um grande impacto ambiental. A mudança começa dentro de casa, com consciência e responsabilidade.</p></div>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="box-top">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="pessoas_comentarios/1.png" alt="">
+                    </div>
+                    <div class="name-user">
+                        <strong>Alex Lima</strong>
+                        <span>@alex_lima_maria</span>
+                    </div>
+                </div>
+
+                <div class="reviews">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+            </div>
+
+            <div class="client-comment"><p>Adorei a iniciativa de reciclagem! É muito importante ver o Ver-O-Peso se modernizando e pensando na sustentabilidade. Parabéns pelo projeto Ser Recicla e pelo comprometimento com a COP30!</p></div>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="box-top">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="pessoas_comentarios/5.png" alt="">
+                    </div>
+                    <div class="name-user">
+                        <strong>Ireneiwakura</strong>
+                        <span>@ireneiwakura</span>
+                    </div>
+                </div>
+
+                <div class="reviews">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+            </div>
+
+            <div class="client-comment"><p>Quando reciclamos, reduzimos a necessidade de extrair novos recursos naturais. Isso preserva florestas, economiza energia e diminui a poluição do solo, da água e do ar. É um gesto de respeito com o futuro.</p></div>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="box-top">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="pessoas_comentarios/4.png" alt="">
+                    </div>
+                    <div class="name-user">
+                        <strong>Ila</strong>
+                        <span>@ilamariasilva</span>
+                    </div>
+                </div>
+
+                <div class="reviews">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+            </div>
+
+            <div class="client-comment"><p>Como estudante da UNAMA, estou super orgulhosa do projeto Ser Recicla! Já consegui entregar mais de 5kg de materiais recicláveis e o aplicativo é super fácil de usar. Estamos fazendo a diferença para a COP30!</p></div>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="box-top">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="pessoas_comentarios/2.png" alt="">
+                    </div>
+                    <div class="name-user">
+                        <strong>levy v</strong>
+                        <span>@593levyv</span>
+                    </div>
+                </div>
+
+                <div class="reviews">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+            </div>
+
+            <div class="client-comment"><p>Plástico, papel, vidro e metais descartados incorretamente levam centenas de anos para se decompor. Mas reciclados, eles voltam ao ciclo produtivo, gerando economia, renda e sustentabilidade.</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="divisao"></div>
+
+<!-- Footer (com cores atualizadas) -->
+<footer id="final">
+    <div id="footer_conteudo">
+        <div id="footer_contatos">
+            <img id="logo" src="/src/Prefeitura_belém.png" alt="">
+            <p>O Melhor para nossa cidade!</p>
+
+            <div id="footer_social_media">
+                <a href="#" class="footer-link" id="whatsapp">
+                <i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+        
+        <ul class="footer-lista">
+            <li>
+                <h3>ONDE ESTAMOS</h3>
+            </li>
+            <a href="https://maps.app.goo.gl/esrKVYnFNhDcrpoc8" class="footer-link">Google Maps</a>
+        </ul>
+        
+        <ul class="footer-lista">
+            <li>
+                <h3>HORARIO DE FUNCIONAMENTO</h3>
+            </li>
+            <li>
+                <h4>5h as 18:30h</h4>
+            </li>
+        </ul>
+        
+        <div id="footer-comentário">
+            <h3>Comente</h3>
+            <p>Mande o que você achou dos nossos produtos!</p>
+            <div class="imput-grupo">
+                <input type="text" id="comentario">
+                <button>
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer_copyright">
+        &#169; 2025 A SERVIÇO DA UNAMA - COP30
+    </div>
+</footer>
+
+<script src="menu.js"></script>
+</body>
+</html>
