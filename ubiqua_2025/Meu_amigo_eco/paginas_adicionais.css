@@ -1,0 +1,499 @@
+/* Adicionando estilos para as páginas de sustentabilidade e participação */
+
+/* Estilos para o banner de página */
+.page-banner {
+    height: 50vh;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+}
+
+.participation-banner {
+    background-image: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+}
+
+/* Estilos para seções de conteúdo */
+.sustentabilidade-section,
+.participacao-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-icon {
+    font-size: 3em;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-header h2:after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-subtitle {
+    font-size: 1.2em;
+    color: var(--secondary-color);
+    margin-top: 20px;
+}
+
+/* Grid de conteúdo */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.content-card {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.content-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.content-card h3 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.content-card p {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Seção de impacto */
+.impact-section {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.impact-section h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.impact-stats {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+/* Processo de participação */
+.processo-container {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    margin-bottom: 60px;
+}
+
+.processo-container h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.processo-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.processo-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+}
+
+/* Removendo as linhas que cortam os passos no meio */
+.processo-step:not(:last-child)::after {
+    display: none; /* Removendo a linha */
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    font-size: 1.3em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.step-link {
+    display: inline-block;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 10px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.step-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    bottom: -2px;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.step-link:hover {
+    color: var(--accent-hover);
+}
+
+.step-link:hover:after {
+    width: 100%;
+}
+
+.material-list {
+    list-style: none;
+    margin: 15px 0;
+}
+
+.material-list li {
+    margin-bottom: 8px;
+}
+
+.material-list i {
+    color: var(--accent-color);
+    margin-right: 10px;
+}
+
+.coleta-horarios {
+    background-color: rgba(0, 204, 106, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Pontos de coleta */
+.pontos-coleta {
+    margin-bottom: 60px;
+}
+
+.pontos-coleta h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.pontos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.ponto-card {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.ponto-card:hover {
+    transform: translateY(-5px);
+}
+
+.ponto-icon {
+    font-size: 2em;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.ponto-card h4 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.ponto-card p {
+    color: var(--text-dark);
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+/* Materiais aceitos */
+.materiais-aceitos {
+    margin-bottom: 60px;
+}
+
+.materiais-aceitos h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.materiais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.material-card {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+}
+
+.material-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+    font-size: 1.5em;
+}
+
+.material-card h4 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.material-card ul {
+    list-style: none;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.material-card li {
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.material-card li:before {
+    content: '•';
+    position: absolute;
+    left: -15px;
+    color: var(--accent-color);
+}
+
+.material-obs {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #666;
+}
+
+/* CTA Container */
+.cta-container {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.cta-container h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.cta-container p {
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+}
+
+.btn-secondary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Correção para a seção "Como funciona" na página principal */
+.reciclagem-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.step {
+    flex: 1;
+    padding: 0 15px;
+    position: relative;
+    min-width: 150px;
+    margin-bottom: 20px;
+}
+
+/* Removendo as linhas que cortam os passos no meio */
+.step:not(:last-child):after {
+    display: none; /* Removendo a linha */
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .impact-stats {
+        flex-direction: column;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner {
+        height: 40vh;
+    }
+    
+    .section-header h2 {
+        font-size: 2em;
+    }
+    
+    .processo-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .step-number {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-banner {
+        height: 30vh;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .processo-container,
+    .impact-section,
+    .cta-container {
+        padding: 25px;
+    }
+}
