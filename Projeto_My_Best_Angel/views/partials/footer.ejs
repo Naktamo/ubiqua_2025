@@ -1,0 +1,56 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <div class="footer-logo">
+                    <img src="/images/logo-white.png" alt="MyBestAngel">
+                </div>
+                <p>Seu guia turístico pessoal em Belém do Pará durante a COP30. Conectamos visitantes com os melhores guias locais para uma experiência única.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5>Links Rápidos</h5>
+                <ul class="footer-links">
+                    <li><a href="/">Homepage</a></li>
+                    <li><a href="/tour/search">Buscar Tours</a></li>
+                    <li><a href="/emergency">Contatos de Emergência</a></li>
+                    <li><a href="/sac">SAC</a></li>
+                    <li><a href="/map">Mapa da Cidade</a></li>
+                    <% if (!locals.user) { %>
+                        <li><a href="/auth/login">Login</a></li>
+                        <li><a href="/auth/register">Cadastrar</a></li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5>Tours Populares</h5>
+                <ul class="footer-links">
+                    <li><a href="/tour/search?search=Ver-o-Peso">Mercado Ver-o-Peso</a></li>
+                    <li><a href="/tour/search?search=gastronomia">Tour Gastronômico</a></li>
+                    <li><a href="/tour/search?search=Basílica">Basílica de Nazaré</a></li>
+                    <li><a href="/tour/search?search=Mangal">Mangal das Garças</a></li>
+                    <li><a href="/tour/search?search=Museu">Museu Emílio Goeldi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h5>Contato</h5>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope me-2"></i> <a href="mailto:caiquerabelo2015@hotmail.com">caiquerabelo2015@hotmail.com</a></li>
+                    <li><i class="fas fa-phone-alt me-2"></i> (91) 9XXXX-XXXX</li>
+                    <li><i class="fas fa-map-marker-alt me-2"></i> Belém, PA - Brasil</li>
+                </ul>
+                <h5 class="mt-4">Sobre a COP30</h5>
+                <p>A COP30 será realizada em Belém do Pará em 2025, reunindo líderes mundiais para discutir as mudanças climáticas e a conservação da Amazônia.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MyBestAngel. Todos os direitos reservados. Desenvolvido por <strong>Caique Rabelo Neves</strong></p>
+        </div>
+    </div>
+</footer>

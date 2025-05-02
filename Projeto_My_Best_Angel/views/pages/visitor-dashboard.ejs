@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <%- include('../partials/header') %>
+
+        <div class="container-fluid mt-4">
+            <!-- Alerts -->
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <% errors.forEach(function(error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success.length > 0) { %>
+                <% success.forEach(function(msg) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= msg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Bem-vindo a Belém, <%= visitor.name %>!</h1>
+                <p class="text-muted">Dashboard do Visitante | COP30 Belém 2025</p>
+            </div>
+
+            <!-- Angel Info Banner -->
+            <div class="card mb-4">
+                <div class="card-body bg-primary bg-opacity-10 p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-9">
+                            <h3 class="mb-3"><i class="fas fa-user-tie me-2"></i> Seu Angel (Guia)</h3>
+                            <div class="d-flex align-items-center">
+                                <img src="/images/default-avatar.jpg" alt="<%= visitor.angel_name %>" class="rounded-circle me-3" width="80" height="80">
+                                <div>
+                                    <h4 class="mb-1"><%= visitor.angel_name %></h4>
+                                    <p class="mb-2"><i class="fas fa-envelope me-2"></i> <%= visitor.angel_email %></p>
+                                    <p class="mb-0"><i class="fas fa-phone me-2"></i> <%= visitor.angel_phone %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center text-md-end mt-3 mt-md-0">
+                            <a href="/visitor/messages" class="btn btn-primary mb-2 w-100"><i class="fas fa-comment-dots me-2"></i> Enviar Mensagem</a>
+                            <a href="/angel/profile/<%= visitor.angel_id %>" class="btn btn-outline-primary w-100"><i class="fas fa-eye me-2"></i> Ver Perfil Completo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-stats">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3><%= upcomingTours.length %></h3>
+                        <p>Tours Agendados</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3><%= bookingHistory.length %></h3>
+                        <p>Histórico de Tours</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3><%= unreadMessages %></h3>
+                        <p>Mensagens Não Lidas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-danger">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3><%= recentUpdates.length %></h3>
+                        <p>Atualizações Recentes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Upcoming Tours Section -->
+                <div class="col-lg-8">
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-calendar-alt me-2"></i> Seus Próximos Tours</h2>
+                            <a href="/visitor/available-tours" class="btn btn-sm btn-primary"><i class="fas fa-plus me-1"></i> Reservar Novo Tour</a>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <% if (upcomingTours && upcomingTours.length > 0) { %>
+                                <div class="row">
+                                    <% upcomingTours.forEach(function(tour) { %>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><%= tour.title %></h5>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="badge bg-primary me-2"><i class="fas fa-map-marker-alt me-1"></i> <%= tour.location %></div>
+                                                        <div class="badge bg-info"><i class="fas fa-calendar me-1"></i> <%= tour.formattedDate %></div>
+                                                    </div>
+                                                    <p class="card-text small text-muted mb-3"><%= tour.description || 'Sem descrição disponível' %></p>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="small">
+                                                            <i class="fas fa-user-tie me-1"></i> Guia: <%= tour.angel_name %>
+                                                        </div>
+                                                        <div>
+                                                            <a href="/visitor/tour/<%= tour.tour_id %>" class="btn btn-sm btn-outline-primary">Detalhes</a>
+                                                            <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal<%= tour.id %>">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer bg-light">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-clock me-1"></i> <%= tour.relativeDate %>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Cancel Modal -->
+                                            <div class="modal fade" id="cancelModal<%= tour.id %>" tabindex="-1" aria-labelledby="cancelModalLabel<%= tour.id %>" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="cancelModalLabel<%= tour.id %>">Confirmar Cancelamento</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Tem certeza que deseja cancelar o tour "<%= tour.title %>" agendado para <%= tour.formattedDate %>?</p>
+                                                            <div class="alert alert-warning">
+                                                                <i class="fas fa-exclamation-triangle me-2"></i> O cancelamento pode estar sujeito a taxas dependendo da antecedência.
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                                            <form action="/visitor/cancel-booking/<%= tour.id %>" method="POST">
+                                                                <button type="submit" class="btn btn-danger">Confirmar Cancelamento</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                </div>
+                            <% } else { %>
+                                <div class="text-center py-5">
+                                    <i class="fas fa-calendar-times text-muted" style="font-size: 3rem;"></i>
+                                    <p class="mt-3">Você não tem tours agendados no momento.</p>
+                                    <a href="/visitor/available-tours" class="btn btn-primary mt-2">Explorar Tours Disponíveis</a>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <!-- Booking History Section -->
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-history me-2"></i> Histórico de Tours</h2>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <% if (bookingHistory && bookingHistory.length > 0) { %>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tour</th>
+                                                <th>Local</th>
+                                                <th>Data</th>
+                                                <th>Status</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% bookingHistory.forEach(function(booking) { %>
+                                                <tr>
+                                                    <td><%= booking.title %></td>
+                                                    <td><%= booking.location %></td>
+                                                    <td><%= booking.formattedDate %></td>
+                                                    <td>
+                                                        <% if (booking.status === 'confirmado') { %>
+                                                            <span class="badge bg-success">Confirmado</span>
+                                                        <% } else if (booking.status === 'cancelado') { %>
+                                                            <span class="badge bg-danger">Cancelado</span>
+                                                        <% } else if (booking.status === 'realizado') { %>
+                                                            <span class="badge bg-info">Realizado</span>
+                                                        <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/visitor/tour/<%= booking.tour_id %>" class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i></a>
+                                                        <% if (booking.status === 'realizado' && !booking.reviewed) { %>
+                                                            <a href="#" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#reviewModal<%= booking.id %>"><i class="fas fa-star"></i></a>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <% if (booking.status === 'realizado' && !booking.reviewed) { %>
+                                                    <!-- Review Modal -->
+                                                    <div class="modal fade" id="reviewModal<%= booking.id %>" tabindex="-1" aria-labelledby="reviewModalLabel<%= booking.id %>" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="reviewModalLabel<%= booking.id %>">Avaliar Tour: <%= booking.title %></h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="/visitor/rate-tour/<%= booking.tour_id %>" method="POST">
+                                                                    <div class="modal-body">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Avaliação:</label>
+                                                                            <div class="rating-stars d-flex">
+                                                                                <div class="form-check form-check-inline">
+                                                                                    <input class="form-check-input" type="radio" name="rating" id="rating1<%= booking.id %>" value="1" required>
+                                                                                    <label class="form-check-label" for="rating1<%= booking.id %>"><i class="fas fa-star text-warning"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check form-check-inline">
+                                                                                    <input class="form-check-input" type="radio" name="rating" id="rating2<%= booking.id %>" value="2">
+                                                                                    <label class="form-check-label" for="rating2<%= booking.id %>"><i class="fas fa-star text-warning"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check form-check-inline">
+                                                                                    <input class="form-check-input" type="radio" name="rating" id="rating3<%= booking.id %>" value="3">
+                                                                                    <label class="form-check-label" for="rating3<%= booking.id %>"><i class="fas fa-star text-warning"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check form-check-inline">
+                                                                                    <input class="form-check-input" type="radio" name="rating" id="rating4<%= booking.id %>" value="4">
+                                                                                    <label class="form-check-label" for="rating4<%= booking.id %>"><i class="fas fa-star text-warning"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check form-check-inline">
+                                                                                    <input class="form-check-input" type="radio" name="rating" id="rating5<%= booking.id %>" value="5">
+                                                                                    <label class="form-check-label" for="rating5<%= booking.id %>"><i class="fas fa-star text-warning"></i></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="comment<%= booking.id %>" class="form-label">Comentário:</label>
+                                                                            <textarea class="form-control" id="comment<%= booking.id %>" name="comment" rows="3" placeholder="Conte sua experiência..."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                                        <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <% } else { %>
+                                <div class="text-center py-4">
+                                    <i class="fas fa-history text-muted" style="font-size: 2.5rem;"></i>
+                                    <p class="mt-3">Seu histórico de tours estará disponível aqui.</p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar Widgets -->
+                <div class="col-lg-4">
+                    <!-- Recent Updates from Angel -->
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-bullhorn me-2"></i> Atualizações do Angel</h2>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <% if (recentUpdates && recentUpdates.length > 0) { %>
+                                <div class="list-group">
+                                    <% recentUpdates.forEach(function(update) { %>
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">
+                                                    <% if (update.type === 'tour_created') { %>
+                                                        <i class="fas fa-plus-circle text-success me-2"></i> Novo Tour
+                                                    <% } else if (update.type === 'tour_updated') { %>
+                                                        <i class="fas fa-edit text-warning me-2"></i> Tour Atualizado
+                                                    <% } %>
+                                                </h5>
+                                                <small><%= update.relativeUpdateDate %></small>
+                                            </div>
+                                            <p class="mb-1"><strong><%= update.title %></strong> em <%= update.location %></p>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar me-1"></i> <%= update.formattedDate %>
+                                                <% if (update.type === 'tour_updated') { %>
+                                                    | <i class="fas fa-history me-1"></i> Atualizado: <%= update.formattedUpdateDate %>
+                                                <% } %>
+                                            </small>
+                                            <div class="mt-2">
+                                                <a href="/visitor/tour/<%= update.id %>" class="btn btn-sm btn-outline-primary">Ver Detalhes</a>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                </div>
+                            <% } else { %>
+                                <div class="text-center py-4">
+                                    <i class="fas fa-bullhorn text-muted" style="font-size: 2.5rem;"></i>
+                                    <p class="mt-3">Não há atualizações recentes do seu Angel.</p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Messages -->
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-comments me-2"></i> Mensagens Recentes</h2>
+                            <a href="/visitor/messages" class="btn btn-sm btn-outline-primary">Ver Todas</a>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <% if (unreadMessages > 0) { %>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-envelope me-2"></i> Você tem <%= unreadMessages %> mensagens não lidas
+                                </div>
+                            <% } %>
+                            
+                            <!-- This would be populated with actual messages from the database -->
+                            <div class="message-list">
+                                <div class="message-item">
+                                    <img src="/images/default-avatar.jpg" alt="Angel" class="message-avatar">
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender"><%= visitor.angel_name %></span>
+                                            <span class="message-time">Hoje, 09:15</span>
+                                        </div>
+                                        <p class="message-preview">Bom dia! Apenas confirmando nosso tour para amanhã. Nos encontraremos no local combinado às...</p>
+                                    </div>
+                                </div>
+                                <div class="message-item">
+                                    <img src="/images/default-avatar.jpg" alt="Angel" class="message-avatar">
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender"><%= visitor.angel_name %></span>
+                                            <span class="message-time">Ontem, 14:20</span>
+                                        </div>
+                                        <p class="message-preview">Olá! Acabei de adicionar um novo tour à Estação das Docas que pode te interessar. Que tal...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Weather Widget -->
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-cloud-sun me-2"></i> Clima em Belém</h2>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="mb-0">Hoje</h5>
+                                        <div class="temperature">
+                                            <i class="fas fa-sun"></i> 32°C
+                                        </div>
+                                    </div>
+                                    <p class="mb-0">Parcialmente nublado com chuvas isoladas à tarde</p>
+                                    <hr class="my-3">
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <p class="small mb-1">Amanhã</p>
+                                            <i class="fas fa-cloud-sun mb-1"></i>
+                                            <p class="mb-0">30°C</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="small mb-1">Sábado</p>
+                                            <i class="fas fa-cloud-showers-heavy mb-1"></i>
+                                            <p class="mb-0">29°C</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="small mb-1">Domingo</p>
+                                            <i class="fas fa-sun mb-1"></i>
+                                            <p class="mb-0">31°C</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-primary bg-opacity-75 text-white small">
+                                    <i class="fas fa-umbrella me-1"></i> Leve sempre um guarda-chuva - chuvas rápidas são comuns em Belém.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- COP30 Countdown -->
+                    <div class="dashboard-section">
+                        <div class="dashboard-section-header">
+                            <h2><i class="fas fa-hourglass-half me-2"></i> Contagem Regressiva COP30</h2>
+                        </div>
+                        <div class="dashboard-section-body text-center">
+                            <div class="countdown-timer mb-3">
+                                <div class="row g-2">
+                                    <div class="col-3">
+                                        <div class="countdown-item bg-light py-2 rounded">
+                                            <div class="number">195</div>
+                                            <div class="unit">dias</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="countdown-item bg-light py-2 rounded">
+                                            <div class="number">18</div>
+                                            <div class="unit">horas</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="countdown-item bg-light py-2 rounded">
+                                            <div class="number">45</div>
+                                            <div class="unit">min</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="countdown-item bg-light py-2 rounded">
+                                            <div class="number">30</div>
+                                            <div class="unit">seg</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>A COP30 em Belém começará em breve! Aproveite para conhecer a cidade antes do início da conferência.</p>
+                            <a href="#" class="btn btn-outline-primary">Ver Programação COP30</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tours Suggestions -->
+            <div class="dashboard-section mb-5 mt-4">
+                <div class="dashboard-section-header">
+                    <h2><i class="fas fa-lightbulb me-2"></i> Tours Recomendados para Você</h2>
+                    <a href="/visitor/available-tours" class="btn btn-sm btn-outline-primary">Ver Todos</a>
+                </div>
+                <div class="dashboard-section-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <img src="/images/tour-placeholder.jpg" class="card-img-top" alt="Mercado Ver-o-Peso">
+                                <div class="card-body">
+                                    <div class="badge bg-danger mb-2">Popular</div>
+                                    <h5 class="card-title">Mercado Ver-o-Peso</h5>
+                                    <p class="card-text small text-muted">Conheça o famoso mercado ao ar livre, um dos principais pontos turísticos de Belém.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="price">R$ 85,00</div>
+                                        <a href="/visitor/tour/1" class="btn btn-outline-primary btn-sm">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i> Próxima data: 10/05/2025
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <img src="/images/tour-placeholder.jpg" class="card-img-top" alt="Estação das Docas">
+                                <div class="card-body">
+                                    <div class="badge bg-success mb-2">Novo</div>
+                                    <h5 class="card-title">Estação das Docas</h5>
+                                    <p class="card-text small text-muted">Tour gastronômico pelo complexo às margens do rio, com restaurantes e lojas.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="price">R$ 120,00</div>
+                                        <a href="/visitor/tour/2" class="btn btn-outline-primary btn-sm">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i> Próxima data: 15/05/2025
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <img src="/images/tour-placeholder.jpg" class="card-img-top" alt="Mangal das Garças">
+                                <div class="card-body">
+                                    <div class="badge bg-primary mb-2">Recomendado</div>
+                                    <h5 class="card-title">Mangal das Garças</h5>
+                                    <p class="card-text small text-muted">Visite este parque naturalístico com fauna e flora amazônicas, incluindo borboletário.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="price">R$ 70,00</div>
+                                        <a href="/visitor/tour/3" class="btn btn-outline-primary btn-sm">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i> Próxima data: 12/05/2025
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/js/main.js"></script>
+    
+    <script>
+        // Inicializar tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Código para atualizar a contagem regressiva (seria implementado com datas reais)
+        function updateCountdown() {
+            // Implementação real usaria a data do evento
+            // Por enquanto, apenas um placeholder
+        }
+        
+        // Atualizar o clima com dados reais usando API (placeholder)
+        function updateWeather() {
+            // Implementação real usaria uma API de clima
+            // Por enquanto, apenas um placeholder
+        }
+    </script>
+</body>
+</html>

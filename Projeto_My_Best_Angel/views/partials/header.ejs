@@ -1,0 +1,120 @@
+<!-- Header -->
+<header class="header">
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle d-lg-none">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Search Form -->
+    <div class="header-search position-relative">
+        <form action="/tour/search" method="GET">
+            <span class="search-icon">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" class="form-control" name="search" placeholder="Buscar tours, lugares, guias...">
+        </form>
+    </div>
+    
+    <!-- Header Actions -->
+    <div class="header-actions">
+        <% if (locals.user) { %>
+            <!-- Notification Icon -->
+            <a href="#" class="header-action-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-bell"></i>
+                <% if (locals.unreadNotifications && locals.unreadNotifications > 0) { %>
+                    <span class="badge"><%=locals.unreadNotifications%></span>
+                <% } %>
+            </a>
+            <!-- Dropdown Menu for Notifications -->
+            <div class="dropdown-menu dropdown-menu-end notification-dropdown">
+                <h6 class="dropdown-header">Notificações</h6>
+                <% if (locals.notifications && locals.notifications.length > 0) { %>
+                    <% notifications.forEach(function(notification) { %>
+                        <a class="dropdown-item" href="<%= notification.link %>">
+                            <div class="notification-item">
+                                <div class="notification-content">
+                                    <p><%= notification.message %></p>
+                                    <small class="text-muted"><%= notification.time %></small>
+                                </div>
+                            </div>
+                        </a>
+                    <% }); %>
+                <% } else { %>
+                    <div class="dropdown-item text-center">
+                        Nenhuma notificação
+                    </div>
+                <% } %>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-center" href="#">Ver todas</a>
+            </div>
+            
+            <!-- Messages Icon -->
+            <a href="#" class="header-action-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-envelope"></i>
+                <% if (locals.unreadMessages && locals.unreadMessages > 0) { %>
+                    <span class="badge"><%=locals.unreadMessages%></span>
+                <% } %>
+            </a>
+            <!-- Dropdown Menu for Messages -->
+            <div class="dropdown-menu dropdown-menu-end message-dropdown">
+                <h6 class="dropdown-header">Mensagens</h6>
+                <% if (locals.messages && locals.messages.length > 0) { %>
+                    <% messages.slice(0, 3).forEach(function(message) { %>
+                        <a class="dropdown-item" href="<%= locals.userType === 'angel' ? '/angel/messages' : '/visitor/messages' %>">
+                            <div class="message-item">
+                                <img src="<%= message.senderAvatar || '/images/default-avatar.jpg' %>" alt="<%= message.senderName %>" class="message-avatar">
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="message-sender"><%= message.senderName %></span>
+                                        <span class="message-time"><%= message.time %></span>
+                                    </div>
+                                    <p class="message-preview"><%= message.preview %></p>
+                                </div>
+                            </div>
+                        </a>
+                    <% }); %>
+                <% } else { %>
+                    <div class="dropdown-item text-center">
+                        Nenhuma mensagem
+                    </div>
+                <% } %>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-center" href="<%= locals.userType === 'angel' ? '/angel/messages' : '/visitor/messages' %>">Ver todas</a>
+            </div>
+            
+            <!-- User Profile -->
+            <a href="#" class="header-action-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-user-circle"></i>
+            </a>
+            <!-- User Dropdown Menu -->
+            <div class="dropdown-menu dropdown-menu-end">
+                <h6 class="dropdown-header">Olá, <%= locals.user.name %>!</h6>
+                <a class="dropdown-item" href="<%= locals.userType === 'angel' ? '/angel/profile' : '/visitor/profile' %>">
+                    <i class="fas fa-user fa-fw me-2"></i> Meu Perfil
+                </a>
+                <a class="dropdown-item" href="<%= locals.userType === 'angel' ? '/angel/dashboard' : '/visitor/dashboard' %>">
+                    <i class="fas fa-tachometer-alt fa-fw me-2"></i> Dashboard
+                </a>
+                <% if (locals.userType === 'angel') { %>
+                    <a class="dropdown-item" href="/angel/tours">
+                        <i class="fas fa-map-marked-alt fa-fw me-2"></i> Meus Tours
+                    </a>
+                    <a class="dropdown-item" href="/angel/visitors">
+                        <i class="fas fa-users fa-fw me-2"></i> Meus Visitantes
+                    </a>
+                <% } else { %>
+                    <a class="dropdown-item" href="/visitor/available-tours">
+                        <i class="fas fa-map-marked-alt fa-fw me-2"></i> Tours Disponíveis
+                    </a>
+                <% } %>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/auth/logout">
+                    <i class="fas fa-sign-out-alt fa-fw me-2"></i> Sair
+                </a>
+            </div>
+        <% } else { %>
+            <a href="/auth/login" class="btn btn-sm btn-outline-primary me-2">Entrar</a>
+            <a href="/auth/register" class="btn btn-sm btn-primary">Cadastrar</a>
+        <% } %>
+    </div>
+</header>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <%- include('../partials/header') %>
+
+        <div class="container mt-4">
+            <!-- Alerts -->
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <% errors.forEach(function(error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success.length > 0) { %>
+                <% success.forEach(function(msg) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= msg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <div class="dashboard-section mb-4">
+                <div class="dashboard-section-header">
+                    <h1><i class="fas fa-headset me-2"></i> Serviço de Atendimento ao Cliente</h1>
+                </div>
+                <div class="dashboard-section-body">
+                    <p class="lead">Estamos aqui para ajudar a tornar sua experiência em Belém durante a COP30 a melhor possível. Entre em contato conosco para dúvidas, sugestões, reclamações ou elogios.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 mb-4">
+                    <div class="contact-form">
+                        <h3 class="mb-4">Envie-nos uma mensagem</h3>
+                        <form id="contactForm" action="/sac/submit" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Nome Completo *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">E-mail *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Telefone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="subject" class="form-label">Assunto *</label>
+                                    <select class="form-select" id="subject" name="subject" required>
+                                        <option value="" selected disabled>Selecione...</option>
+                                        <option value="Dúvida">Dúvida</option>
+                                        <option value="Sugestão">Sugestão</option>
+                                        <option value="Reclamação">Reclamação</option>
+                                        <option value="Elogio">Elogio</option>
+                                        <option value="Suporte Técnico">Suporte Técnico</option>
+                                        <option value="Cancelamento">Cancelamento</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="userType" class="form-label">Você é:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="visitorRadio" value="visitor" checked>
+                                    <label class="form-check-label" for="visitorRadio">
+                                        Visitante
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="angelRadio" value="angel">
+                                    <label class="form-check-label" for="angelRadio">
+                                        Guia (Angel)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="otherRadio" value="other">
+                                    <label class="form-check-label" for="otherRadio">
+                                        Outro
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mensagem *</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    Concordo com o processamento dos meus dados conforme a <a href="#">Política de Privacidade</a> *
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                            <p class="mt-2"><small>* Campos obrigatórios</small></p>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-lg-5">
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h3><i class="fas fa-info-circle me-2"></i> Informações de Contato</h3>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <ul class="contact-info">
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>E-mail</h3>
+                                        <p><a href="mailto:caiquerabelo2015@hotmail.com">caiquerabelo2015@hotmail.com</a></p>
+                                    </div>
+                                </li>
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Telefone</h3>
+                                        <p>(91) 9XXXX-XXXX</p>
+                                    </div>
+                                </li>
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Horário de Atendimento</h3>
+                                        <p>Segunda a Sexta: 8h às 18h<br>Sábado: 9h às 13h</p>
+                                    </div>
+                                </li>
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Endereço</h3>
+                                        <p>Av. Presidente Vargas, 1000<br>Centro, Belém - PA, 66017-000</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-section mb-4">
+                        <div class="dashboard-section-header">
+                            <h3><i class="fas fa-question-circle me-2"></i> Perguntas Frequentes</h3>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <div class="accordion" id="faqAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faqHeading1">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                            Como cancelo uma reserva?
+                                        </button>
+                                    </h2>
+                                    <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Visitantes podem cancelar reservas através do dashboard, na seção "Minhas Reservas". Clique no tour desejado e depois em "Cancelar Reserva". O cancelamento é gratuito até 48h antes do tour.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faqHeading2">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                            Posso mudar meu Angel (guia)?
+                                        </button>
+                                    </h2>
+                                    <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Sim, você pode solicitar a mudança de Angel através do SAC. A solicitação será avaliada conforme disponibilidade de Angels e motivo da mudança. Entraremos em contato em até 24h com uma resposta.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faqHeading3">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                            Como são feitos os pagamentos?
+                                        </button>
+                                    </h2>
+                                    <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Aceitamos cartões de crédito, débito e PIX. Os pagamentos são processados de forma segura através da nossa plataforma. Para Angels, o repasse é feito em até 3 dias úteis após a realização do tour.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faqHeading4">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                            E se o tempo estiver ruim?
+                                        </button>
+                                    </h2>
+                                    <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Em caso de condições climáticas adversas, o Angel poderá reagendar o tour ou oferecer alternativas indoor. Se o tour for cancelado devido ao clima, você receberá reembolso total ou poderá remarcar sem custos adicionais.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <div class="dashboard-section-header">
+                            <h3><i class="fas fa-comment-dots me-2"></i> Mídias Sociais</h3>
+                        </div>
+                        <div class="dashboard-section-body">
+                            <p>Fique conectado conosco e receba informações sobre a COP30:</p>
+                            <div class="social-buttons">
+                                <a href="#" class="btn btn-outline-primary mb-2 me-2"><i class="fab fa-facebook-f me-2"></i> Facebook</a>
+                                <a href="#" class="btn btn-outline-info mb-2 me-2"><i class="fab fa-twitter me-2"></i> Twitter</a>
+                                <a href="#" class="btn btn-outline-danger mb-2 me-2"><i class="fab fa-instagram me-2"></i> Instagram</a>
+                                <a href="#" class="btn btn-outline-success mb-2"><i class="fab fa-whatsapp me-2"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location Map -->
+            <div class="dashboard-section mb-5 mt-4">
+                <div class="dashboard-section-header">
+                    <h3><i class="fas fa-map-marked-alt me-2"></i> Nossa Localização</h3>
+                </div>
+                <div class="dashboard-section-body">
+                    <div class="ratio ratio-21x9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31903.336397819474!2d-48.50328337348455!3d-1.4557393290365307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48eee07bd5b19%3A0xfcf69c8c72a39422!2zQmVsw6ltLCBQQQ!5e0!3m2!1spt-BR!2sbr!4v1651234567890!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <%- include('../partials/header') %>
+
+        <div class="container-fluid mt-4">
+            <!-- Alerts -->
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <% errors.forEach(function(error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success.length > 0) { %>
+                <% success.forEach(function(msg) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= msg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <!-- Hero Section with Carousel -->
+            <div class="hero-section">
+                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/images/carousel/carousel1.jpg" class="d-block w-100" alt="Ver-o-Peso em Belém">
+                            <div class="carousel-caption">
+                                <h2>Descubra Belém do Pará</h2>
+                                <p>Explore a magia da Amazônia durante a COP30 com os melhores guias locais</p>
+                                <a href="/tour/search" class="btn btn-primary">Encontrar Tours</a>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/images/carousel/carousel2.jpg" class="d-block w-100" alt="Gastronomia de Belém">
+                            <div class="carousel-caption">
+                                <h2>Gastronomia Paraense</h2>
+                                <p>Delicie-se com os sabores da culinária amazônica</p>
+                                <a href="/tour/search?search=gastronomia" class="btn btn-primary">Tours Gastronômicos</a>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/images/carousel/carousel3.jpg" class="d-block w-100" alt="COP30 em Belém">
+                            <div class="carousel-caption">
+                                <h2>COP30 em Belém</h2>
+                                <p>Participe do maior evento sobre mudanças climáticas do mundo</p>
+                                <a href="#cop30-section" class="btn btn-primary">Saiba Mais</a>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/images/carousel/carousel4.jpg" class="d-block w-100" alt="Cultura de Belém">
+                            <div class="carousel-caption">
+                                <h2>Cultura e História</h2>
+                                <p>Conheça as tradições e a riqueza cultural da Amazônia</p>
+                                <a href="/tour/search?search=cultura" class="btn btn-primary">Tours Culturais</a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- About MyBestAngel Section -->
+            <section class="about-section py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2 class="section-title">Bem-vindo ao MyBestAngel</h2>
+                            <p class="lead">Seu guia perfeito para conhecer Belém durante a COP30!</p>
+                            <p>MyBestAngel conecta visitantes a guias turísticos locais (nossos "Angels") que conhecem os melhores lugares, histórias e experiências que Belém tem a oferecer.</p>
+                            <p>Cada "Angel" pode afiliar até três "Visitors", garantindo um atendimento personalizado e exclusivo durante sua estadia na cidade.</p>
+                            <div class="mt-4">
+                                <a href="/auth/register?type=visitor" class="btn btn-primary me-2">Registrar como Visitante</a>
+                                <a href="/auth/register?type=angel" class="btn btn-outline-primary">Registrar como Guia</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="feature-boxes">
+                                <div class="feature-box">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Tours Exclusivos</h3>
+                                        <p>Passeios personalizados pelos melhores pontos turísticos de Belém</p>
+                                    </div>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Experiências Gastronômicas</h3>
+                                        <p>Descubra os sabores autênticos da culinária paraense</p>
+                                    </div>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Agendamento Simplificado</h3>
+                                        <p>Organize sua agenda de passeios com facilidade</p>
+                                    </div>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Comunicação Direta</h3>
+                                        <p>Chat direto com seu guia para tirar dúvidas e personalizar experiências</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COP30 Section -->
+            <section id="cop30-section" class="cop30-section py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="section-title">A COP30 em Belém</h2>
+                            <p class="lead">Um marco histórico para a Amazônia e o mundo</p>
+                            <p>A 30ª Conferência das Nações Unidas sobre Mudanças Climáticas (COP30) será realizada em Belém do Pará em 2025, representando um momento crucial para discutir o futuro do planeta e a preservação da Amazônia.</p>
+                            <p>Este evento global reunirá líderes mundiais, especialistas em clima, ativistas e representantes da sociedade civil para avançar nas negociações sobre mudanças climáticas e definir novas metas para redução de emissões de gases de efeito estufa.</p>
+                            <p>A escolha de Belém como sede destaca a importância da região amazônica nos debates sobre sustentabilidade e conservação ambiental.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cop30-agenda">
+                                <h3>Agenda COP30</h3>
+                                <div class="agenda-item">
+                                    <span class="agenda-date">16-18 de Novembro, 2025</span>
+                                    <h4>Grupos de Trabalho Temáticos</h4>
+                                    <p>Discussões técnicas sobre finanças climáticas, tecnologia e adaptação</p>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="agenda-date">19-21 de Novembro, 2025</span>
+                                    <h4>Sessões de Negociação</h4>
+                                    <p>Finalização de acordos e compromissos entre as nações</p>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="agenda-date">22 de Novembro, 2025</span>
+                                    <h4>Encerramento e Declaração Final</h4>
+                                    <p>Anúncio oficial dos resultados e compromissos da COP30</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Tours Section -->
+            <section class="featured-tours py-5">
+                <div class="container">
+                    <h2 class="section-title text-center mb-5">Tours em Destaque</h2>
+                    <div class="row" id="featured-tours-container">
+                        <!-- Tours serão inseridos dinamicamente via JavaScript -->
+                        <!-- Placeholder para exemplo -->
+                        <div class="col-md-4 mb-4">
+                            <div class="tour-card">
+                                <div class="tour-image">
+                                    <img src="/images/tour-placeholder.jpg" alt="Tour em Belém">
+                                    <div class="tour-price">R$ 80</div>
+                                </div>
+                                <div class="tour-body">
+                                    <h3 class="tour-title">Mercado Ver-o-Peso</h3>
+                                    <div class="tour-info">
+                                        <span><i class="fas fa-map-marker-alt"></i> Centro, Belém</span>
+                                        <span><i class="fas fa-calendar"></i> 12/11/2025</span>
+                                    </div>
+                                    <p class="tour-description">Visite o famoso mercado a céu aberto, um dos símbolos da cidade de Belém.</p>
+                                    <div class="tour-footer">
+                                        <div class="tour-guide">
+                                            <img src="/images/guide-avatar.jpg" alt="Guia">
+                                            <span>Guia João</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-primary">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="/tour/search" class="btn btn-outline-primary">Ver Todos os Tours</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Guides Section -->
+            <section class="featured-guides py-5 bg-light">
+                <div class="container">
+                    <h2 class="section-title text-center mb-5">Nossos Guias em Destaque</h2>
+                    <div class="row" id="featured-guides-container">
+                        <!-- Guides serão inseridos dinamicamente via JavaScript -->
+                        <!-- Placeholder para exemplo -->
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="guide-card">
+                                <div class="guide-image">
+                                    <img src="/images/guide-placeholder.jpg" alt="Guia Turístico">
+                                </div>
+                                <div class="guide-body">
+                                    <h3 class="guide-name">Maria Silva</h3>
+                                    <div class="guide-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span>4.5</span>
+                                    </div>
+                                    <p class="guide-specialty">Especialidade: Gastronomia e Cultura</p>
+                                    <p class="guide-languages">Idiomas: Português, Inglês, Espanhol</p>
+                                    <div class="guide-stats">
+                                        <span><i class="fas fa-users"></i> 2 visitantes</span>
+                                        <span><i class="fas fa-map-marked-alt"></i> 8 tours</span>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-primary w-100 mt-2">Ver Perfil</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="testimonials py-5">
+                <div class="container">
+                    <h2 class="section-title text-center mb-5">O que Dizem Nossos Visitantes</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <p>"A experiência com meu Angel foi incrível! Conheci lugares em Belém que jamais encontraria sozinho. Recomendo muito!"</p>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="/images/testimonial1.jpg" alt="Testemunho">
+                                    <div>
+                                        <h4>Carlos Mendes</h4>
+                                        <p>São Paulo, Brasil</p>
+                                    </div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <p>"Os tours gastronômicos são espetaculares! Provei o melhor açaí da minha vida e aprendi muito sobre a culinária amazônica."</p>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="/images/testimonial2.jpg" alt="Testemunho">
+                                    <div>
+                                        <h4>Amanda Johnson</h4>
+                                        <p>New York, EUA</p>
+                                    </div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <p>"O sistema de comunicação direta com o guia facilita muito o planejamento. Tive uma experiência personalizada e inesquecível em Belém!"</p>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="/images/testimonial3.jpg" alt="Testemunho">
+                                    <div>
+                                        <h4>Juan Martínez</h4>
+                                        <p>Barcelona, Espanha</p>
+                                    </div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section py-5">
+                <div class="container">
+                    <div class="cta-wrapper text-center">
+                        <h2>Pronto para explorar Belém durante a COP30?</h2>
+                        <p class="lead">Cadastre-se agora e conecte-se com os melhores guias turísticos locais!</p>
+                        <div class="cta-buttons">
+                            <a href="/auth/register?type=visitor" class="btn btn-lg btn-primary me-3">Registrar como Visitante</a>
+                            <a href="/auth/login" class="btn btn-lg btn-outline-light">Já tenho uma conta</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <%- include('../partials/footer') %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/js/main.js"></script>
+    <script src="/js/carousel.js"></script>
+</body>
+</html>
+                                    <span class="agenda-date">10-12 de Novembro, 2025</span>
+                                    <h4>Cúpula de Líderes Mundiais</h4>
+                                    <p>Discursos de chefes de Estado e governo sobre compromissos climáticos</p>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="agenda-date">13-15 de Novembro, 2025</span>
+                                    <h4>Segmento de Alto Nível</h4>
+                                    <p>Ministros e autoridades debatem implementação do Acordo de Paris</p>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="agenda-date">16-18 de Novembro, 2025</span>
+                                    <h4>Grupos de Trabalho Temáticos</h4>
+                                    <p>Discussões técnicas sobre finanças climáticas, tecnologia e adaptação</p>
+                                </div>
+                                <div class="agenda-item">

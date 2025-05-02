@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <style>
+        .visitor-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .visitor-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .visitor-item:hover, .visitor-item.active {
+            background-color: rgba(22, 160, 133, 0.1);
+        }
+        
+        .visitor-item .unread-badge {
+            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 767px) {
+            .visitor-list {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <%- include('../partials/header') %>
+
+        <div class="container mt-4">
+            <!-- Alerts -->
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <% errors.forEach(function(error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success.length > 0) { %>
+                <% success.forEach(function(msg) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= msg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }); %>
+            <% } %>
+
+            <div class="row">
+                <!-- Visitors List Sidebar -->
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-section h-100">
+                        <div class="dashboard-section-header d-flex justify-content-between align-items-center">
+                            <h2><i class="fas fa-users me-2"></i> Meus Visitantes</h2>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="newMessageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="newMessageDropdown">
+                                    <% if (availableVisitors && availableVisitors.length > 0) { %>
+                                        <% availableVisitors.forEach(function(visitor) { %>
+                                            <li>
+                                                <a class="dropdown-item" href="#" onclick="setVisitorForNewMessage('<%= visitor.id %>', '<%= visitor.name %>')">
+                                                    <%= visitor.name %>
+                                                </a>
+                                            </li>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <li><span class="dropdown-item text-muted">Nenhum visitante disponível</span></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-section-body px-0 py-0">
+                            <div class="visitor-list">
+                                <% if (conversations && conversations.length > 0) { %>
+                                    <% conversations.forEach(function(conversation, index) { %>
+                                        <div class="visitor-item d-flex align-items-center p-3 border-bottom <%= index === 0 ? 'active' : '' %>" onclick="loadConversation('<%= conversation.id %>', '<%= conversation.name %>', <%= index %>)">
+                                            <img src="/images/default-avatar.jpg" alt="<%= conversation.name %>" class="rounded-circle me-3" width="50" height="50">
+                                            <div class="flex-grow-1">
+                                                <h5 class="mb-1"><%= conversation.name %></h5>
+                                                <p class="mb-0 text-muted small text-truncate" style="max-width: 150px;">
+                                                    <%= conversation.messages.length > 0 ? (conversation.messages[0].content.length > 25 ? conversation.messages[0].content.substring(0, 25) + '...' : conversation.messages[0].content) : 'Nenhuma mensagem' %>
+                                                </p>
+                                            </div>
+                                            <% 
+                                                let unreadCount = 0;
+                                                conversation.messages.forEach(function(msg) {
+                                                    if (!msg.isFromAngel && !msg.read) {
+                                                        unreadCount++;
+                                                    }
+                                                });
+                                            %>
+                                            <% if (unreadCount > 0) { %>
+                                                <span class="badge bg-danger unread-badge"><%= unreadCount %></span>
+                                            <% } %>
+                                        </div>
+                                    <% }); %>
+                                <% } else { %>
+                                    <div class="text-center py-4">
+                                        <i class="far fa-comment-dots text-muted" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">Você ainda não tem conversas com seus visitantes.</p>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Area -->
+                <div class="col-md-8">
+                    <div class="chat-container">
+                        <!-- Chat Header -->
+                        <div class="chat-header">
+                            <img src="/images/default-avatar.jpg" id="chat-visitor-avatar" alt="Visitante">
+                            <div>
+                                <h3 id="chat-visitor-name">
+                                    <% if (conversations && conversations.length > 0) { %>
+                                        <%= conversations[0].name %>
+                                    <% } else { %>
+                                        Selecione um visitante
+                                    <% } %>
+                                </h3>
+                                <div class="online-status">
+                                    <span class="online-indicator"></span>
+                                    <small>Online</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Chat Messages -->
+                        <div class="chat-messages" id="chat-messages">
+                            <% if (conversations && conversations.length > 0 && conversations[0].messages.length > 0) { %>
+                                <% conversations[0].messages.forEach(function(message) { %>
+                                    <div class="chat-message <%= message.isFromAngel ? 'chat-message-sent' : 'chat-message-received' %>">
+                                        <%= message.content %>
+                                        <span class="chat-message-time"><%= message.formattedDate %></span>
+                                    </div>
+                                <% }); %>
+                            <% } else { %>
+                                <div class="text-center text-muted py-5">
+                                    <i class="far fa-comment-dots mb-3" style="font-size: 3rem;"></i>
+                                    <p>Selecione um visitante para ver as mensagens ou inicie uma nova conversa.</p>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="chat-input">
+                            <form action="/angel/send-message" method="POST" id="message-form">
+                                <input type="hidden" name="visitorId" id="visitor-id" value="<%= conversations && conversations.length > 0 ? conversations[0].id : '' %>">
+                                <input type="text" name="content" placeholder="Digite sua mensagem..." required autocomplete="off" <%= (!conversations || conversations.length === 0) ? 'disabled' : '' %>>
+                                <button type="submit" <%= (!conversations || conversations.length === 0) ? 'disabled' : '' %>>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Guide -->
+            <div class="dashboard-section mb-5 mt-4">
+                <div class="dashboard-section-header">
+                    <h2><i class="fas fa-comments me-2"></i> Guia de Comunicação Efetiva</h2>
+                </div>
+                <div class="dashboard-section-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-header bg-primary text-white">
+                                    <i class="fas fa-thumbs-up me-2"></i> Práticas Recomendadas
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i> <strong>Seja responsivo:</strong> Responda as mensagens em até 2 horas durante o dia</li>
+                                        <li><i class="fas fa-check text-success me-2"></i> <strong>Seja detalhista:</strong> Forneça informações completas sobre os passeios</li>
+                                        <li><i class="fas fa-check text-success me-2"></i> <strong>Personalize:</strong> Adapte suas sugestões aos interesses do visitante</li>
+                                        <li><i class="fas fa-check text-success me-2"></i> <strong>Confirme detalhes:</strong> Envie lembretes um dia antes dos tours</li>
+                                        <li><i class="fas fa-check text-success me-2"></i> <strong>Seja cultural:</strong> Compartilhe curiosidades e tradições locais</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-header bg-danger text-white">
+                                    <i class="fas fa-thumbs-down me-2"></i> Práticas a Evitar
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-times text-danger me-2"></i> <strong>Demora nas respostas:</strong> Ignorar mensagens por mais de 24 horas</li>
+                                        <li><i class="fas fa-times text-danger me-2"></i> <strong>Informações imprecisas:</strong> Fornecer dados incorretos sobre horários ou locais</li>
+                                        <li><i class="fas fa-times text-danger me-2"></i> <strong>Linguagem inadequada:</strong> Usar gírias ou expressões muito locais</li>
+                                        <li><i class="fas fa-times text-danger me-2"></i> <strong>Pressionar:</strong> Insistir em tours ou serviços adicionais</li>
+                                        <li><i class="fas fa-times text-danger me-2"></i> <strong>Promessas irrealistas:</strong> Garantir experiências que não pode cumprir</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-lightbulb me-2"></i> Mensagens Padrão Úteis (Clique para copiar)
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="template-message p-2 border rounded mb-2" onclick="copyToClipboard('Olá! Bem-vindo a Belém! Estou à disposição para tornar sua experiência durante a COP30 inesquecível. Como posso ajudar?')">
+                                        <strong>Boas-vindas:</strong> Olá! Bem-vindo a Belém! Estou à disposição para tornar sua experiência durante a COP30 inesquecível. Como posso ajudar?
+                                    </div>
+                                    <div class="template-message p-2 border rounded mb-2" onclick="copyToClipboard('Confirmo nosso tour amanhã! Nos encontraremos no local combinado às [HORÁRIO]. Lembre-se de trazer: protetor solar, água e roupas leves. Estou à disposição para qualquer dúvida.')">
+                                        <strong>Confirmação de tour:</strong> Confirmo nosso tour amanhã! Nos encontraremos no local combinado às [HORÁRIO]. Lembre-se de trazer: protetor solar, água e roupas leves. Estou à disposição para qualquer dúvida.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="template-message p-2 border rounded mb-2" onclick="copyToClipboard('Acabei de adicionar um novo tour ao nosso catálogo que pode te interessar! É um passeio por [LOCAL] com foco em [TEMA]. Teria interesse em participar?')">
+                                        <strong>Novo tour:</strong> Acabei de adicionar um novo tour ao nosso catálogo que pode te interessar! É um passeio por [LOCAL] com foco em [TEMA]. Teria interesse em participar?
+                                    </div>
+                                    <div class="template-message p-2 border rounded mb-2" onclick="copyToClipboard('Para melhor atendê-lo, gostaria de saber quais são seus principais interesses em Belém? Gastronomia, história, natureza ou cultura?')">
+                                        <strong>Personalização:</strong> Para melhor atendê-lo, gostaria de saber quais são seus principais interesses em Belém? Gastronomia, história, natureza ou cultura?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Message Modal -->
+            <div class="modal fade" id="newMessageModal" tabindex="-1" aria-labelledby="newMessageModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newMessageModalLabel">Nova Mensagem</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/angel/send-message" method="POST">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="newMessageVisitor" class="form-label">Para:</label>
+                                    <input type="text" class="form-control" id="newMessageVisitorName" disabled>
+                                    <input type="hidden" name="visitorId" id="newMessageVisitorId">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newMessageContent" class="form-label">Mensagem:</label>
+                                    <textarea class="form-control" id="newMessageContent" name="content" rows="5" required></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/js/main.js"></script>
+    
+    <script>
+        // Armazenar todas as conversas para acesso via JavaScript
+        const conversations = <% if (conversations && conversations.length > 0) { %><%- JSON.stringify(conversations) %><% } else { %>[]<% } %>;
+        
+        // Função para carregar uma conversa específica
+        function loadConversation(visitorId, visitorName, index) {
+            // Atualizar header do chat
+            document.getElementById('chat-visitor-name').textContent = visitorName;
+            
+            // Atualizar ID do visitante no formulário
+            document.getElementById('visitor-id').value = visitorId;
+            
+            // Habilitar formulário se estiver desabilitado
+            const messageInput = document.querySelector('.chat-input input[name="content"]');
+            const messageButton = document.querySelector('.chat-input button');
+            if (messageInput.disabled) {
+                messageInput.disabled = false;
+                messageButton.disabled = false;
+            }
+            
+            // Limpar área de mensagens
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            
+            // Adicionar mensagens da conversa selecionada
+            if (conversations[index] && conversations[index].messages.length > 0) {
+                conversations[index].messages.forEach(function(message) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `chat-message ${message.isFromAngel ? 'chat-message-sent' : 'chat-message-received'}`;
+                    messageDiv.innerHTML = `
+                        ${message.content}
+                        <span class="chat-message-time">${message.formattedDate}</span>
+                    `;
+                    chatMessages.appendChild(messageDiv);
+                });
+            } else {
+                // Se não há mensagens, mostrar mensagem informativa
+                chatMessages.innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="far fa-comment-dots mb-3" style="font-size: 3rem;"></i>
+                        <p>Ainda não há mensagens nesta conversa. Inicie o diálogo!</p>
+                    </div>
+                `;
+            }
+            
+            // Rolar para o fim das mensagens
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Atualizar visual dos itens da lista de visitantes
+            const visitorItems = document.querySelectorAll('.visitor-item');
+            visitorItems.forEach(item => item.classList.remove('active'));
+            visitorItems[index].classList.add('active');
+            
+            // Focar no campo de input
+            messageInput.focus();
+        }
+        
+        // Função para abrir modal de nova mensagem
+        function setVisitorForNewMessage(visitorId, visitorName) {
+            document.getElementById('newMessageVisitorId').value = visitorId;
+            document.getElementById('newMessageVisitorName').value = visitorName;
+            
+            const newMessageModal = new bootstrap.Modal(document.getElementById('newMessageModal'));
+            newMessageModal.show();
+        }
+        
+        // Função para copiar mensagens padrão para a área de transferência
+        function copyToClipboard(text) {
+            const messageInput = document.querySelector('.chat-input input[name="content"]');
+            messageInput.value = text;
+            messageInput.focus();
+        }
+        
+        // Ao carregar a página, rolar para o final das mensagens
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Ao enviar o formulário, limpar o campo de input
+            const messageForm = document.getElementById('message-form');
+            messageForm.addEventListener('submit', function() {
+                setTimeout(() => {
+                    document.querySelector('.chat-input input[name="content"]').value = '';
+                }, 10);
+            });
+        });
+    </script>
+</body>
+</html>

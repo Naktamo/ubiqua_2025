@@ -1,0 +1,418 @@
+/* 
+ * MyBestAngel - Estilos Responsivos
+ * Autor: Caique Rabelo Neves
+ * COP30 Belém - 2025
+ */
+
+/* Dispositivos grandes (desktops e notebooks) */
+@media (max-width: 1199px) {
+    .carousel-caption h2 {
+        font-size: 2.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1.1rem;
+    }
+    
+    .tour-detail-image {
+        height: 350px;
+    }
+}
+
+/* Dispositivos médios (tablets) */
+@media (max-width: 991px) {
+    .carousel-item {
+        height: 450px;
+    }
+    
+    .carousel-caption {
+        bottom: 15%;
+        padding: 1.5rem;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 2rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+    
+    .feature-box {
+        padding: 1.2rem;
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .tour-detail-meta {
+        gap: 1rem;
+    }
+    
+    .booking-sidebar {
+        position: static;
+        margin-top: 2rem;
+    }
+    
+    .chat-container {
+        height: 500px;
+    }
+    
+    .map-container {
+        height: 500px;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Dispositivos pequenos (smartphones na horizontal) */
+@media (max-width: 767px) {
+    :root {
+        --sidebar-width: 0;
+        --header-height: 60px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar {
+        left: -260px;
+        transition: left 0.3s ease;
+        z-index: 1050;
+    }
+    
+    .sidebar-open .sidebar {
+        left: 0;
+        width: 260px;
+    }
+    
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+    }
+    
+    .sidebar-open .sidebar-overlay {
+        display: block;
+    }
+    
+    .sidebar-logo .logo-text,
+    .sidebar-menu .menu-text,
+    .user-info .user-details {
+        display: block;
+    }
+    
+    .header {
+        padding: 0 1rem;
+    }
+    
+    .header-search {
+        width: 60%;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+        font-size: 1.5rem;
+        color: var(--dark-color);
+        cursor: pointer;
+    }
+    
+    .carousel-item {
+        height: 400px;
+    }
+    
+    .carousel-caption {
+        bottom: 10%;
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1.8rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-wrapper {
+        padding: 3rem 1.5rem;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    
+    .tour-guide-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .tour-guide-avatar {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .chat-container {
+        height: 450px;
+    }
+    
+    .map-container {
+        height: 400px;
+    }
+}
+
+/* Dispositivos muito pequenos (smartphones na vertical) */
+@media (max-width: 575px) {
+    .header-search {
+        display: none;
+    }
+    
+    .carousel-item {
+        height: 350px;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-caption .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .feature-boxes {
+        gap: 1rem;
+    }
+    
+    .about-section .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .about-section .btn:last-child {
+        margin-right: 0;
+    }
+    
+    .tour-detail-meta {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .tour-detail-title {
+        font-size: 1.5rem;
+    }
+    
+    .tour-detail-image {
+        height: 250px;
+    }
+    
+    .booking-price {
+        font-size: 1.5rem;
+    }
+    
+    .auth-form {
+        padding: 1.5rem;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+    }
+}
+
+/* Ajustes para dispositivos muito grandes */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .carousel-item {
+        height: 650px;
+    }
+    
+    .carousel-caption {
+        bottom: 25%;
+        max-width: 700px;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 3.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1.3rem;
+    }
+}
+
+/* Suporte a modo escuro (se preferido pelo sistema) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #2ecc71;
+        --secondary-color: #27ae60;
+        --dark-color: #1a1a1a;
+        --light-color: #f8f9fa;
+        --text-color: #e0e0e0;
+        --gray-color: #95a5a6;
+    }
+    
+    body {
+        background-color: #121212;
+        color: var(--text-color);
+    }
+    
+    .header, 
+    .auth-form, 
+    .tour-card, 
+    .guide-card, 
+    .testimonial-card, 
+    .dashboard-section, 
+    .stat-card, 
+    .booking-sidebar, 
+    .emergency-card, 
+    .tour-detail-section, 
+    .contact-form, 
+    .map-place-item {
+        background-color: #1e1e1e;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar {
+        background-color: #0f0f0f;
+    }
+    
+    .feature-box {
+        background-color: #1e1e1e;
+    }
+    
+    .chat-message-received {
+        background-color: #2c2c2c;
+    }
+    
+    .chat-input input {
+        background-color: #2c2c2c;
+        color: var(--text-color);
+    }
+    
+    .auth-separator::before {
+        background-color: #333;
+    }
+    
+    .auth-separator span {
+        background-color: #1e1e1e;
+    }
+    
+    .notification-item,
+    .message-item,
+    .booking-info-item,
+    .agenda-item {
+        border-color: #333;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-box,
+.tour-card,
+.guide-card,
+.testimonial-card,
+.stat-card,
+.notification-item,
+.message-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Ajustes para telas sensíveis ao toque */
+@media (hover: none) {
+    .tour-card:hover,
+    .guide-card:hover,
+    .feature-box:hover,
+    .map-place-item:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Suporte para impressão */
+@media print {
+    .sidebar,
+    .header,
+    .footer,
+    .cta-section,
+    .carousel-indicators,
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+    
+    body {
+        background-color: white;
+        color: black;
+    }
+    
+    .tour-detail-image,
+    .map-container {
+        height: 300px;
+    }
+    
+    .tour-card,
+    .guide-card,
+    .dashboard-section,
+    .emergency-card,
+    .booking-sidebar {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
